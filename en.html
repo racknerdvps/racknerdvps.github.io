@@ -1,38 +1,29 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 原标题保持不变，后面会用JS动态插入年份 -->
-    <title>RackNerd 特价VPS - 高性价比年付便宜VPS推荐</title>
+    <!-- 原标题保持不变，JS 会自动插入年份 -->
+    <title>RackNerd Promo VPS - Best Annual Deals</title>
     
-    <!-- SEO Meta（已加入高权重关键词 + 年份会在JS里动态更新） -->
-    <meta name="description" content="最新RackNerd特价VPS大全，高性价比年付KVM虚拟主机，便宜VPS实时库存，每日更新，1核1G仅$10起，支持支付宝，一键购买！">
-    <meta name="keywords" content="RackNerd特价VPS,便宜VPS,RackNerd年付,洛杉矶VPS,高性价比VPS,KVM虚拟主机,海外VPS推荐">
+    <meta name="description" content="Latest RackNerd Promo VPS Deals - Cheap Annual KVM VPS from $10/year, Real-time stock, Daily updated, Alipay supported!">
+    <meta name="keywords" content="RackNerd promo,RackNerd deals,cheap VPS,annual VPS,Los Angeles VPS,best budget VPS,KVM VPS">
     
-    <meta property="og:title" content="RackNerd 特价VPS - 高性价比年付便宜VPS推荐">
-    <meta property="og:description" content="实时更新RackNerd最新特价年付VPS，库存一目了然，最低$10/年起">
+    <meta property="og:title" content="RackNerd Promo VPS - Best Annual Deals">
+    <meta property="og:description" content="Latest RackNerd annual promo VPS deals with real-time stock, starting at only $10/year">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="/">
+    <meta property="og:url" content="/en.html">
     <meta property="og:image" content="/racknerd.png">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="/en.html">
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root {
-            --bg-day: linear-gradient(135deg, #f5f7ff 0%, #e0e7ff 100%);
-            --bg-night: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --card-day: rgba(255,255,255,0.95);
-            --card-night: rgba(30,41,59,0.95);
-            --text-day: #1e293b;
-            --text-night: #e2e8f0;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-        }
+        :root{--bg-day:linear-gradient(135deg,#f5f7ff 0%,#e0e7ff 100%);--bg-night:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);--card-day:rgba(255,255,255,0.95);--card-night:rgba(30,41,59,0.95);--text-day:#1e293b;--text-night:#e2e8f0;--primary:#6366f1;--primary-hover:#4f46e5;}
         *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;background,var(--bg-day);color:var(--text-day);transition:all .4s;}
+        body{font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;background:var(--bg-day);color:var(--text-day);transition:all .4s;}
         body.night{background:var(--bg-night);color:var(--text-night);}
         .container{max-width:1280px;margin:0 auto;padding:20px;}
         header{text-align:center;padding:50px 20px 30px;position:relative;}
@@ -44,8 +35,7 @@
         .vps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;margin-top:30px;}
         .vps-card{background:var(--card-day);border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.1);transition:all .3s;position:relative;overflow:hidden;}
         body.night .vps-card{background:var(--card-night);box-shadow:0 10px 30px rgba(0,0,0,.4);}
-        .vps-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.18);}
-        body.night .vps-card:hover{box-shadow:0 20px 40px rgba(0,0,0,.6);}
+        .vps-card:hover{transform:translateY(-8px);}
         .stock{position:absolute;top:12px;right:12px;padding:4px 10px;border-radius:20px;font-size:.8em;font-weight:bold;}
         .in-stock{background:#10b981;color:#fff;}
         .sold-out{background:#ef4444;color:#fff;}
@@ -58,34 +48,36 @@
         .buy-btn i{margin-right:8px;}
         .loading{text-align:center;padding:80px;font-size:1.3em;color:#64748b;}
         footer{text-align:center;padding:40px 20px 20px;opacity:.7;font-size:.9em;}
+        .lang-switch{margin-top:15px;}
+        .lang-switch a{margin:0 10px;color:inherit;text-decoration:underline;}
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <button class="theme-toggle" id="themeToggle" aria-label="切换夜间模式">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                 <i class="fas fa-moon"></i>
             </button>
-            <h1>RackNerd 特价年付VPS</h1>
-            <p class="subtitle">实时库存 · 高性价比 · 每日更新</p>
-            <div class="last-update" id="lastUpdate">正在加载最新数据...</div>
+            <h1>RackNerd Promo VPS Deals</h1>
+            <p class="subtitle">Real-time Stock · Best Price · Daily Updated</p>
+            <div class="last-update" id="lastUpdate">Loading latest data...</div>
         </header>
 
         <div id="loading" class="loading">
-            <i class="fas fa-spinner fa-spin fa-2x"></i><br><br>加载中...
+            <i class="fas fa-spinner fa-spin fa-2x"></i><br><br>Loading...
         </div>
         <div id="vpsGrid" class="vps-grid" style="display:none;"></div>
     </div>
 
     <footer>
-        © 2025 RackNerd VPS 汇总 | 实时读取
-        <div class="lang-switch" style="margin-top:15px;">
-            中文版 | <a href="/en.html">English Version →</a>
+        © 2025 RackNerd Deals | Auto-loaded
+        <div class="lang-switch">
+            English Version | <a href="/index.html">中文版 →</a>
         </div>
     </footer>
 
     <script>
-        // 夜间模式切换
+        // Dark mode
         const toggleBtn = document.getElementById('themeToggle');
         const body = document.body;
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -94,37 +86,33 @@
         }
         toggleBtn.addEventListener('click', () => {
             body.classList.toggle('night');
-            toggleBtn.innerHTML = body.classList.contains('night') 
-                ? '<i class="fas fa-sun"></i>' 
-                : '<i class="fas fa-moon"></i>';
+            toggleBtn.innerHTML = body.classList.contains('night') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         });
 
-        // 加载数据 + 动态插入年份到标题（关键修改）
+        // Load data + dynamic title year
         async function loadData() {
             try {
                 const res = await fetch('data.json?t=' + Date.now());
-                if (!res.ok) throw new Error('无法加载 data.json');
+                if (!res.ok) throw new Error('Failed to load data.json');
                 const data = await res.json();
 
-                const updateDate = new Date(data.date_utc);
-                const year = updateDate.getFullYear();
+                const date = new Date(data.date_utc);
+                const year = date.getFullYear();
 
-                // 关键：只在加载成功后才动态修改标题（原标题内容不动）
-                document.title = `${year}年最新 ${document.title}`;
+                // Insert year into title
+                document.title = `${year} ${document.title}`;
 
-                // 顺便同步更新 meta description 和 keywords 中的年份
+                // Update meta
                 document.querySelector('meta[name="description"]').setAttribute('content',
-                    `${year}年最新RackNerd特价VPS大全，高性价比年付KVM虚拟主机，便宜VPS实时库存，每日更新，1核1G仅$10起，支持支付宝，一键购买！`);
+                    `${year} Latest RackNerd Promo VPS Deals - Cheap Annual KVM VPS from $10/year, Real-time stock, Daily updated, Alipay supported!`);
                 document.querySelector('meta[name="keywords"]').setAttribute('content',
-                    `RackNerd特价VPS,${year}年便宜VPS,RackNerd年付,洛杉矶VPS,高性价比VPS,KVM虚拟主机,海外VPS推荐`);
+                    `RackNerd promo,RackNerd deals,cheap VPS ${year},annual VPS,Los Angeles VPS,best budget VPS,KVM VPS`);
                 document.querySelector('meta[property="og:title"]').setAttribute('content',
-                    `${year}年最新 RackNerd 特价VPS - 高性价比年付便宜VPS推荐`);
+                    `${year} RackNerd Promo VPS - Best Annual Deals`);
 
-                // 更新页面显示的时间
                 document.getElementById('lastUpdate').textContent = 
-                    `最后更新：${updateDate.toLocaleString('zh-CN', {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'})}`;
+                    `Last updated: ${date.toLocaleString('en-US', {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'})}`;
 
-                // 生成卡片
                 const grid = document.getElementById('vpsGrid');
                 document.getElementById('loading').style.display = 'none';
                 grid.style.display = 'grid';
@@ -133,24 +121,23 @@
                     const card = document.createElement('div');
                     card.className = 'vps-card';
                     card.innerHTML = `
-                        <div class="stock ${item.stock > 0 ? 'in-stock' : 'sold-out'}">${item.stock > 0 ? '有货' : '售罄'}</div>
+                        <div class="stock ${item.stock > 0 ? 'in-stock' : 'sold-out'}">${item.stock > 0 ? 'In Stock' : 'Sold Out'}</div>
                         <div class="vps-title"><i class="fas fa-server"></i> ${item.title}</div>
-                        <div class="spec"><i class="fas fa-microchip"></i> CPU <span>${item.vcores} 核</span></div>
-                        <div class="spec"><i class="fas fa-memory"></i> 内存 <span>${item.ram}</span></div>
-                        <div class="spec rued"><i class="fas fa-hdd"></i> 存储 <span>${item.storage}</span></div>
-                        <div class="spec"><i class="fas fa-exchange-alt"></i> 流量 <span>${item.bandwidth}</span></div>
-                        <div class="price">$${item.price}<small style="font-size:0.5em;">/年</small></div>
+                        <div class="spec"><i class="fas fa-microchip"></i> CPU <span>${item.vcores} Core(s)</span></div>
+                        <div class="spec"><i class="fas fa-memory"></i> RAM <span>${item.ram}</span></div>
+                        <div class="spec"><i class="fas fa-hdd"></i> Storage <span>${item.storage}</span></div>
+                        <div class="spec"><i class="fas fa-exchange-alt"></i> Bandwidth <span>${item.bandwidth}</span></div>
+                        <div class="price">$${item.price}<small style="font-size:0.5em;">/year</small></div>
                         <a href="${item.url}" target="_blank" class="buy-btn" 
                            ${item.stock === 0 ? 'style="background:#94a3b8;cursor:not-allowed;" onclick="return false;"' : ''}>
-                            <i class="fas fa-shopping-cart"></i> ${item.stock > 0 ? '立即购买' : '已售罄'}
+                            <i class="fas fa-shopping-cart"></i> ${item.stock > 0 ? 'Buy Now' : 'Sold Out'}
                         </a>
                     `;
                     grid.appendChild(card);
                 });
 
             } catch (err) {
-                document.getElementById('loading').innerHTML = 
-                    `<p style="color:#ef4444">加载失败：${err.message}<br>请检查 data.json 是否存在</p>`;
+                document.getElementById('loading').innerHTML = `<p style="color:#ef4444">Error: ${err.message}</p>`;
             }
         }
 
